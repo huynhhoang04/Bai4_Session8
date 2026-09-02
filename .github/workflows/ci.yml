@@ -28,16 +28,16 @@ jobs:
 
       - name: Build and push image
         run: |
-          REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]' | cut -d'/' -f2)
-          docker build -t ghcr.io/${{ github.repository }}/${REPO_NAME}:latest .
-          docker push ghcr.io/${{ github.repository }}/${REPO_NAME}:latest
+          IMAGE_NAME="ghcr.io/$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')/bai4_session8"
+          docker build -t "${IMAGE_NAME}:latest" .
+          docker push "${IMAGE_NAME}:latest"
 
       - name: Pull image
         run: |
-          REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]' | cut -d'/' -f2)
-          docker pull ghcr.io/${{ github.repository }}/${REPO_NAME}:latest
+          IMAGE_NAME="ghcr.io/$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')/bai4_session8"
+          docker pull "${IMAGE_NAME}:latest"
 
       - name: Run container
         run: |
-          REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]' | cut -d'/' -f2)
-          docker run -d --rm ghcr.io/${{ github.repository }}/${REPO_NAME}:latest
+          IMAGE_NAME="ghcr.io/$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')/bai4_session8"
+          docker run -d --rm "${IMAGE_NAME}:latest"
