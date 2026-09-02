@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  packages: read
+  packages: write
   contents: read
 
 jobs:
@@ -23,9 +23,8 @@ jobs:
       - name: Set image name
         id: image
         run: |
-          ORG=$(echo '${{ github.repository }}' | cut -d'/' -f1)
-          REPO=$(echo '${{ github.repository }}' | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-          echo "name=ghcr.io/${ORG}/${REPO}/${REPO}:latest" >> $GITHUB_OUTPUT
+          REPO=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')
+          echo "name=ghcr.io/${REPO}:latest" >> $GITHUB_OUTPUT
 
       - name: Pull image
         run: docker pull ${{ steps.image.outputs.name }}
